@@ -12,6 +12,8 @@
 		AFB027361C928218002267BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFB027341C928218002267BE /* Main.storyboard */; };
 		AFB027381C928218002267BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFB027371C928218002267BE /* Assets.xcassets */; };
 		AFB0273B1C928218002267BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFB027391C928218002267BE /* LaunchScreen.storyboard */; };
+		AFB027431C92822A002267BE /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB027421C92822A002267BE /* Line.swift */; };
+		AFB027451C928309002267BE /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB027441C928309002267BE /* DrawView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,9 @@
 		AFB027371C928218002267BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AFB0273A1C928218002267BE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFB0273C1C928218002267BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AFB027421C92822A002267BE /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		AFB027441C928309002267BE /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		AFB027461C928400002267BE /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +43,7 @@
 		AFB027241C928218002267BE = {
 			isa = PBXGroup;
 			children = (
+				AFB027461C928400002267BE /* .gitignore */,
 				AFB0272F1C928218002267BE /* TouchTracker */,
 				AFB0272E1C928218002267BE /* Products */,
 			);
@@ -60,6 +66,8 @@
 				AFB027371C928218002267BE /* Assets.xcassets */,
 				AFB027391C928218002267BE /* LaunchScreen.storyboard */,
 				AFB0273C1C928218002267BE /* Info.plist */,
+				AFB027421C92822A002267BE /* Line.swift */,
+				AFB027441C928309002267BE /* DrawView.swift */,
 			);
 			path = TouchTracker;
 			sourceTree = "<group>";
@@ -135,7 +143,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFB027431C92822A002267BE /* Line.swift in Sources */,
 				AFB027331C928218002267BE /* ViewController.swift in Sources */,
+				AFB027451C928309002267BE /* DrawView.swift in Sources */,
 				AFB027311C928218002267BE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
