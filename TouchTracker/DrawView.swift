@@ -12,7 +12,14 @@ class DrawView: UIView {
     
     var currentLines = [NSValue: Line]()
     var finishedLines = [Line]()
-    var selectedLineIndex: Int?
+    var selectedLineIndex: Int? {
+        didSet {
+            if selectedLineIndex == nil {
+                let menu = UIMenuController.sharedMenuController()
+                menu.setMenuVisible(false, animated: true)
+            }
+        }
+    }
     
     @IBInspectable var finishedLineColor: UIColor = UIColor.blackColor() {
         didSet {
@@ -47,15 +54,46 @@ class DrawView: UIView {
         
     }
     
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
+    
     func tap(gestureRecognizer: UIGestureRecognizer) {
         print("Recognized a tap")
+        
         let point = gestureRecognizer.locationInView(self)
         selectedLineIndex = indexOfLineAtPoint(point)
+        
+        // Grab the menu controller
+        let menu = UIMenuController.sharedMenuController()
+        
+        if selectedLineIndex != nil {
+            
+            // Make DrawView the target of meny item action messages
+            becomeFirstResponder()
+            
+            // Create a Delete UIMenuItem
+            let deleteItem = UIMenuItem(title: "Delete", action: "deleteLine:")
+            menu.menuItems = [deleteItem]
+            
+            // Tell the menu where it should com from and show it
+            menu.setTargetRect(CGRect(x: point.x, y: point.y, width: 2, height: 2), inView: self)
+            menu.setMenuVisible(true, animated: true)
+            
+        } else {
+        
+            // Hide the menu if no line is selected
+            menu.setMenuVisible(false, animated: true)
+            
+        }
+        
         setNeedsDisplay()
+        
     }
     
     func doubleTap(gestureRecognizer: UIGestureRecognizer) {
         print("Recognized a double tap")
+        selectedLineIndex = nil
         currentLines.removeAll(keepCapacity: false)
         finishedLines.removeAll(keepCapacity: false)
         setNeedsDisplay()
@@ -69,6 +107,19 @@ class DrawView: UIView {
         path.moveToPoint(line.begin)
         path.addLineToPoint(line.end)
         path.stroke()
+    }
+    
+    func deleteLine(sender: AnyObject) {
+        
+        // Remove the selected line from the list of finishedLines
+        if let index = selectedLineIndex {
+            finishedLines.removeAtIndex(index)
+            selectedLineIndex = nil
+            
+            // Redraw everything
+            setNeedsDisplay()
+        }
+        
     }
     
     override func drawRect(rect: CGRect) {
