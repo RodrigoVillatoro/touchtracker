@@ -21,6 +21,7 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
         }
     }
     var moveRecognizer: UIPanGestureRecognizer!
+    var showingMenu = false
     
     @IBInspectable var finishedLineColor: UIColor = UIColor.blackColor() {
         didSet {
@@ -88,11 +89,13 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
             // Tell the menu where it should com from and show it
             menu.setTargetRect(CGRect(x: point.x, y: point.y, width: 2, height: 2), inView: self)
             menu.setMenuVisible(true, animated: true)
+            showingMenu = true
             
         } else {
         
             // Hide the menu if no line is selected
             menu.setMenuVisible(false, animated: true)
+            showingMenu = false
             
         }
         
@@ -153,26 +156,32 @@ class DrawView: UIView, UIGestureRecognizerDelegate {
     func moveLine(gestureRecognizer: UIPanGestureRecognizer) {
         print("Recognized a pan")
         
-        // If a line is selected...
-        if let index = selectedLineIndex {
-            // When the pan recognizer changes its position...
-            if gestureRecognizer.state == .Changed {
-                // How far has the pan moved?
-                let translation = gestureRecognizer.translationInView(self)
+        if showingMenu == false {
+            
+            // If a line is selected...
+            if let index = selectedLineIndex {
                 
-                // Add the translation to th ecurrent beginning and end points of the line
-                finishedLines[index].begin.x += translation.x
-                finishedLines[index].begin.y += translation.y
-                finishedLines[index].end.x += translation.x
-                finishedLines[index].end.y += translation.y
-                
-                gestureRecognizer.setTranslation(CGPoint.zero, inView: self)
-                
-                setNeedsDisplay()
+                // When the pan recognizer changes its position...
+                if gestureRecognizer.state == .Changed {
+                    
+                    // How far has the pan moved?
+                    let translation = gestureRecognizer.translationInView(self)
+                    
+                    // Add the translation to th ecurrent beginning and end points of the line
+                    finishedLines[index].begin.x += translation.x
+                    finishedLines[index].begin.y += translation.y
+                    finishedLines[index].end.x += translation.x
+                    finishedLines[index].end.y += translation.y
+                    
+                    gestureRecognizer.setTranslation(CGPoint.zero, inView: self)
+                    
+                    setNeedsDisplay()
+                }
             }
-        }
-        else {
-            return
+            else {
+                return
+            }
+            
         }
         
     }
